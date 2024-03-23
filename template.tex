@@ -1,0 +1,249 @@
+%-------------------------------------
+% LaTeX Resume for Software Engineers
+% Author : Leslie Cheng
+% License : MIT
+%-------------------------------------
+
+\documentclass[letterpaper,12pt]{article}[leftmargin=*]
+
+\usepackage[empty]{fullpage}
+\usepackage{enumitem}
+\usepackage{ifxetex}
+\usepackage{xeCJK}
+\xeCJKsetup{CJKspace=true}
+\xeCJKDeclareCharClass{CJK}{`0 -> `9}
+\ifxetex
+  \usepackage{fontspec}
+  \usepackage[xetex]{hyperref}
+\else
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+  \usepackage[pdftex]{hyperref}
+\fi
+\usepackage{fontawesome}
+\usepackage[sfdefault,light]{FiraSans}
+\usepackage{anyfontsize}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{graphicx}
+
+%-------------------------------------------------- SETTINGS HERE --------------------------------------------------
+% Header settings
+\def \fullname {\fontsize{24}{28}\selectfont 姓名}%在这里填名字
+\def \subtitle {\fontsize{18}{22}\selectfont 武汉理工大学 | 电子科学与技术}
+\def \imagepath {image.jpg}%在这里填简历图片
+% \def \linkedinicon {\faLinkedin}
+% \def \linkedinlink {https://linkedin.com/in/dwight-schrute/}
+% \def \linkedintext {/dwight-schrute}
+
+% \def \phoneicon {\faPhone}
+% \def \phonetext {15227490921}
+
+% \def \emailicon {\faEnvelope}
+% \def \emaillink {mailto:dschrute@dundermifflin.com}
+% \def \emailtext {outoforder996@gmail.com}
+
+% \def \githubicon {\faGithub}
+% \def \githublink {https://github.com/out-of-order55}
+% \def \githubtext {/out-of-order55}
+
+% \def \websiteicon {\faGlobe}
+% \def \websitelink {https://google.com/}
+% \def \websitetext {dwightschrute.com}
+
+\def \headertype {\singlecol} % only \singlecol can be sel 
+
+% Misc settings
+\def \entryspacing {-10pt}
+
+\def \bulletstyle {\faAngleRight}
+
+% Define colours
+\definecolor{primary}{HTML}{000000}
+\definecolor{secondary}{HTML}{0D47A1}
+\definecolor{accent}{HTML}{263238}
+\definecolor{links}{HTML}{1565C0}
+
+%------------------------------------------------------------------------------------------------------------------- 
+
+% Defines to make listing easier
+% \def \linkedin {\linkedinicon \hspace{3pt}\href{\linkedinlink}{\linkedintext}}
+% \def \phone {\phoneicon \hspace{3pt}{ \phonetext}}
+% \def \email {\emailicon \hspace{3pt}\href{\emaillink}{\emailtext}}
+% \def \github {\githubicon \hspace{3pt}\href{\githublink}{\githubtext}}
+% \def \website {\websiteicon \hspace{3pt}\href{\websitelink}{\websitetext}}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.55in}
+\addtolength{\evensidemargin}{-0.55in}
+\addtolength{\textwidth}{1.1in}
+\addtolength{\topmargin}{-0.6in}
+\addtolength{\textheight}{1.1in}
+
+% Define the link colours
+\hypersetup{
+    colorlinks=true,
+    urlcolor=links,
+}
+
+% Set the margin alignment 
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+%-------------------------
+% Custom commands
+
+% Sections
+\renewcommand{\section}[2]{\vspace{5pt}
+  \colorbox{secondary}{\color{white}\raggedbottom\normalsize\textbf{{#1}{\hspace{7pt}#2}}}
+}
+
+% Entry start and end, for spacing
+\newcommand{\resumeEntryStart}{\begin{itemize}[leftmargin=2.5mm]}
+\newcommand{\resumeEntryEnd}{\end{itemize}\vspace{\entryspacing}}
+
+% Itemized list for the bullet points under an entry, if necessary
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=4.5mm,itemsep=-3pt]}
+\newcommand{\resumeItemListEnd}{\end{itemize}}
+
+% Resume item
+\renewcommand{\labelitemii}{\bulletstyle}
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+% Entry with title, subheading, date(s), and location
+\newcommand{\resumeEntryTSDL}[4]{
+  \vspace{-1pt}\item[]
+    \begin{tabularx}{0.97\textwidth}{X@{\hspace{60pt}}r}
+      \textbf{\color{primary}#1} & {\firabook\color{accent}\small#2} \\
+      \textit{\color{accent}\small#3} & \textit{\color{accent}\small#4} \\
+    \end{tabularx}\vspace{-6pt}
+}
+
+% Entry with title and date(s)
+\newcommand{\resumeEntryTD}[2]{
+  \vspace{-1pt}\item[]
+    \begin{tabularx}{0.97\textwidth}{X@{\hspace{60pt}}r}
+      \textbf{\color{primary}#1} & {\firabook\color{accent}\small#2} \\
+    \end{tabularx}\vspace{-6pt}
+}
+
+% Entry for special (skills)
+\newcommand{\resumeEntryS}[2]{
+  \item[]\small{
+    \textbf{\color{primary}#1 }{ #2 \vspace{-10pt}}
+  }
+}
+
+% Double column header
+% \newcommand{\doublecol}[6]{
+%   \begin{tabularx}{\textwidth}{Xr}
+%     {
+%       \begin{tabular}[c]{l}
+%         \fontsize{35}{45}\selectfont{\color{primary}{{\textbf{\fullname}}}} \\
+%         {\textit{\subtitle}} % You could add a subtitle here
+%       \end{tabular}
+%     } & {
+%       \begin{tabular}[c]{l@{\hspace{1.5em}}l}
+%         {\small#4} & {\small#1} \\
+%         {\small#5} & {\small#2} \\
+%         {\small#6} & {\small#3}
+%       \end{tabular}
+%     }
+%   \end{tabularx}
+% }
+
+% Single column header
+\newcommand{\singlecol}[7]{
+  \begin{tabularx}{\textwidth}{Xr}
+    {
+		
+      \begin{tabular}[b]{l}
+        \fontsize{35}{45}\selectfont{\color{primary}{{\textbf{\fullname}}}} \\
+        {\textit{\subtitle}} % You could add a subtitle here
+      \end{tabular}
+    } & {
+
+      \includegraphics[width=0.15\textwidth]{\imagepath}
+    }
+  \end{tabularx}
+}
+
+
+\begin{document}
+%-------------------------------------------------- BEGIN HERE --------------------------------------------------
+
+%---------------------------------------------------- HEADER ----------------------------------------------------
+
+\headertype{}{}{}{}{}{}
+
+\vspace{-10pt} % Set a negative value to push the body up, and the opposite
+
+%-------------------------------------------------- EDUCATION --------------------------------------------------
+\section{\faGraduationCap}{基本信息}
+
+  \resumeEntryStart
+    \resumeEntryS
+	  {\fontsize{12}{14}\selectfont {性别 | 年龄 | 政治面貌 }}\\
+\vspace{10pt}
+	  {\fontsize{12}{14}\selectfont {电话: \hspace{10pt}邮箱: }}\\
+
+      {\fontsize{12}{14}\selectfont {武汉理工大学 | 电子科学与技术 }}\\
+\vspace{-10pt}
+    \resumeItemListStart
+      \resumeItem {\fontsize{12}{14}\selectfont {成绩:}}
+      \resumeItem {\fontsize{12}{14}\selectfont {排名:\textbf{}}}
+      \resumeItem {\fontsize{12}{14}\selectfont {主要课程:}}
+    \resumeItemListEnd
+  \resumeEntryEnd
+
+%-------------------------------------------------- EXPERIENCE --------------------------------------------------
+\section{\faPieChart}{项目经历}
+
+  \resumeEntryStart
+    \resumeEntryTSDL
+      {项目名字}{时间}%{项目名字} {时间}
+      {排位}{}%排位
+    \resumeItemListStart
+      \resumeItem {主要工作}%工作
+      \resumeItem {}
+      \resumeItem {}
+    \resumeItemListEnd
+  \resumeEntryEnd
+
+  \resumeEntryStart
+    \resumeEntryTSDL
+      {项目名字}{时间}%{项目名字} {时间}
+      {排位}{}%排位
+    \resumeItemListStart
+      \resumeItem {}
+      \resumeItem {}
+    \resumeItemListEnd
+  \resumeEntryEnd
+
+
+%-------------------------------------------------- PROJECTS --------------------------------------------------
+%奖项 {}{在这里填写}
+\section{\faFlask}{获奖情况}
+
+ \resumeEntryStart
+  \resumeEntryS{} {X等奖}
+  \resumeEntryS{} {}
+  \resumeEntryS{} {}
+  \resumeEntryS{} {}
+  \resumeEntryS{} {}
+ \resumeEntryEnd
+
+%-------------------------------------------------- PROGRAMMING SKILLS --------------------------------------------------
+% 写自己的技能
+\section{\faGears}{个人技能}
+ \resumeEntryStart
+  \resumeEntryS{} {自己的个人技能}
+  \resumeEntryS{} {}
+ \resumeEntryEnd
+
+\end{document}
